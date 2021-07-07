@@ -1,0 +1,28 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflow:
+      - "Lint & Test"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Setup python
+        uses: actions/setup-python@v2
+
+    with:
+        heroku_api_key:  ${{secrets.HEROKU_API_KEY}}
+        heroku_app_name: "steve-discobot"
+        heroku_email: "chirag.singla.pi@gmail.com"
+        buildpack: "https://github.com/moneymeets/python-poetry-buildpack.git"
+        healthcheck: "https://steve-discobot.herokuapp.com/health"
+        delay: 10
+        rollbackonhealthcheckfailed: true
+
+    env:
+        HD_BOT_TOKEN: ${{secrets.BOT_TOKEN}}
