@@ -14,6 +14,9 @@ jobs:
       
       - name: Setup python
         uses: actions/setup-python@v2
+      
+      - name: Deploy to heroku
+        uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key:  ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "steve-discobot"
