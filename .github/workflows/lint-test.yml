@@ -19,6 +19,8 @@ jobs:
       
       - name: Setup python
         uses: actions/setup-python@v2
+        with:
+          python-version: 3.9.6
 
       - name: Install Poetry
         run: pip install poetry --user --no-cache-dir
