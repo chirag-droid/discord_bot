@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - main
-    pull_requests:
+  pull_request:
 
 jobs:
   lint-test:
     runs-on: ubuntu-latest    
     env:
-      - BOT_TOKEN: "BOT_TOKEN"
-      - POETRY_VIRTUALENVS_CREATE: false
+      BOT_TOKEN: "BOT_TOKEN"
+      POETRY_VIRTUALENVS_CREATE: false
 
     steps:
       - name: Checkout repository
