@@ -25,6 +25,7 @@ class Snipe(commands.Cog, name="General"):
         }
 
     @commands.command(name="snipe")
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def snipe(self, ctx: Context):
         """A command to snipe deleted messages"""
         if not self.last_message.get(ctx.channel.id):
@@ -43,6 +44,7 @@ class Snipe(commands.Cog, name="General"):
         await ctx.send(embed=embed)
 
     @commands.command(name="editsnipe")
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def editsnipe(self, ctx: Context):
         """A command to snipe last editted messsages"""
         messages = self.last_edit_message.get(ctx.channel.id)

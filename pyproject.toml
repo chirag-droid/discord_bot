@@ -9,6 +9,8 @@ python = "3.9.6"
 "discord.py" = "^1.7.3"
 PyYAML = "^5.4.1"
 envyaml = "^1.8.210417"
+arrow = "^1.1.1"
+"nekos.py" = "^1.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"

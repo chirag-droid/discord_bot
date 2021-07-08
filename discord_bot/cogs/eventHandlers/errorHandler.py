@@ -52,20 +52,12 @@ class errorHandler(commands.Cog):
                 NSFW commands can only be ran in NSFW channels.
             """
 
-        else:
-            title = "Unhandled error"
-            description = f"""
-                An Unhandled exception occured,
-                if this happens frequently please report to bot devs.\n{error}
-            """
-
-        if title and description:
-            await ctx.reply(
-                embed=discord.Embed(
-                    title=title, description=description, color=discord.Color.red()
-                ),
-                mention_author=True,
-            )
+        await ctx.reply(
+            embed=discord.Embed(
+                title=title, description=description, color=discord.Color.red()
+            ),
+            mention_author=True,
+        )
 
 
 def setup(bot: commands.Bot):

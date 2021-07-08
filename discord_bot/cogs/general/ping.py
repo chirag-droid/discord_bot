@@ -25,7 +25,9 @@ class Ping(commands.Cog, name="General"):
             API Latency: {round((end_time - start_time) * 1000)}ms"""
 
         ping = "\n".join([x.strip() for x in ping.split("\n")])
-        embed = discord.Embed(title=":ping_pong: Pong!", description=ping)
+        embed = discord.Embed(
+            title=":ping_pong: Pong!", description=ping, color=discord.Color.green()
+        )
 
         await message.edit(embed=embed)
 
