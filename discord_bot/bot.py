@@ -1,10 +1,11 @@
 from discord import Game
 from discord.ext import commands
+from discord.ext.commands import Bot
 from discord.mentions import AllowedMentions
 
 from discord_bot.config import BotConfig
 
-bot = commands.Bot(
+bot = Bot(
     command_prefix=commands.when_mentioned_or(BotConfig.prefix),
     description=BotConfig.description,
     activity=Game(BotConfig.activity, large_image_url=BotConfig.large_image),

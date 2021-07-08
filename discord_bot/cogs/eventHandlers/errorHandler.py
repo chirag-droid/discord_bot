@@ -45,6 +45,13 @@ class errorHandler(commands.Cog):
                 please check your input and try again!
             """
 
+        elif isinstance(error, commands.NSFWChannelRequired):
+            title = "What are u doing?"
+            description = """
+                You are trying  to run a nsfw command.
+                NSFW commands can only be ran in NSFW channels.
+            """
+
         else:
             title = "Unhandled error"
             description = f"""
@@ -61,5 +68,5 @@ class errorHandler(commands.Cog):
             )
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(errorHandler(bot))
