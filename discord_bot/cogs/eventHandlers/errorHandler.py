@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+from discord_bot.utils.messages import formatDocstr
+
 
 class errorHandler(commands.Cog):
     """
@@ -54,7 +56,9 @@ class errorHandler(commands.Cog):
 
         await ctx.reply(
             embed=discord.Embed(
-                title=title, description=description, color=discord.Color.red()
+                title=title,
+                description=formatDocstr(description),
+                color=discord.Color.red(),
             ),
             mention_author=True,
         )

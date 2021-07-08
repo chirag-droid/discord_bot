@@ -5,6 +5,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 
 from discord_bot import start_time
+from discord_bot.utils.messages import formatDocstr
 
 
 class Ping(commands.Cog, name="General"):
@@ -22,11 +23,13 @@ class Ping(commands.Cog, name="General"):
 
         ping = f"""
             Gateway Latency: {round(self.bot.latency * 1000)}ms
-            API Latency: {round((end_time - start_time) * 1000)}ms"""
+            API Latency: {round((end_time - start_time) * 1000)}ms
+        """
 
-        ping = "\n".join([x.strip() for x in ping.split("\n")])
         embed = discord.Embed(
-            title=":ping_pong: Pong!", description=ping, color=discord.Color.green()
+            title=":ping_pong: Pong!",
+            description=formatDocstr(ping),
+            color=discord.Color.green(),
         )
 
         await message.edit(embed=embed)
