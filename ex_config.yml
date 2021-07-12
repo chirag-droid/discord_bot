@@ -2,6 +2,6 @@ bot:
   TOKEN: ${BOT_TOKEN}
   
   # These configs are optional
-  # prefix: "a!"
+  # prefix: !!python/tuple ["a!", "A!"]
   # description: "Anime Girls bot"
   # activity: "with anime girls"

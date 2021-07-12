@@ -6,7 +6,7 @@ from discord.mentions import AllowedMentions
 from discord_bot.config import BotConfig
 
 bot = Bot(
-    command_prefix=commands.when_mentioned_or(BotConfig.prefix),
+    command_prefix=commands.when_mentioned_or(*BotConfig.prefix),
     description=BotConfig.description,
     activity=Game(BotConfig.activity, large_image_url=BotConfig.large_image),
     allowed_mentions=AllowedMentions(everyone=False),

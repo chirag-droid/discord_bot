@@ -11,7 +11,7 @@ else:
 
 class BotConfig(NamedTuple):
     TOKEN = config["bot"].get("TOKEN")
-    prefix = config["bot"].get("prefix", "a!")
+    prefix = config["bot"].get("prefix", ("a!", "A!"))
     description = config["bot"].get("description", "Anime girls bot")
     activity = config["bot"].get("activity", "with anime girls")
     large_image = config["bot"].get("large_image", None)
