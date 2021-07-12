@@ -4,41 +4,48 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from discord.ext.commands.context import Context
 
+from discord_bot.utils.messages import formatDocstr
+
 
 class Snipe(commands.Cog, name="General"):
     """Snipe last editted and deleted messages"""
 
     def __init__(self, bot: Bot):
         self.bot = bot
-        self.last_message: "dict[str, Message]" = {}
-        self.last_edit_message: "dict[str, dict[str, Message]]" = {}
+        self.last_mes: "dict[str, dict[str, str]]" = {}
+        self.edit_mes: "dict[str, dict[str, str]]" = {}
 
     @commands.Cog.listener()
     async def on_message_delete(self, msg: Message):
-        self.last_message[msg.channel.id] = msg
+        if msg.author.bot:
+            return
+        self.last_mes[msg.channel.id] = {"author": msg.author, "content": msg.content}
 
     @commands.Cog.listener()
     async def on_message_edit(self, before: Message, after: Message):
-        self.last_edit_message[before.channel.id] = {
-            "before": before,
-            "after": after,
+        if before.author.bot:
+            return
+        self.edit_mes[before.channel.id] = {
+            "author": before.author,
+            "before": before.content,
+            "after": after.content,
         }
 
     @commands.command(name="snipe")
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def snipe(self, ctx: Context):
         """A command to snipe deleted messages"""
-        if not self.last_message.get(ctx.channel.id):
+        if not self.last_mes.get(ctx.channel.id):
             await ctx.send("There is no message to snipe!")
             return
 
-        message = self.last_message[ctx.channel.id]
-        author = message.author
-        content = message.content
+        mes = self.last_mes.get(ctx.channel.id)
+        title = f"Message from {mes['author']}"
+        description = mes["content"]
 
         embed = discord.Embed(
-            title=f"Message from {author}",
-            description=content,
+            title=title,
+            description=description,
             color=discord.Color.red(),
         )
         await ctx.send(embed=embed)
@@ -47,21 +54,20 @@ class Snipe(commands.Cog, name="General"):
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def editsnipe(self, ctx: Context):
         """A command to snipe last editted messsages"""
-        messages = self.last_edit_message.get(ctx.channel.id)
-
-        if not messages:
+        if not self.edit_mes.get(ctx.channel.id):
             await ctx.send("There is no message to snipe")
             return
 
-        before_msg = messages.get("before")
-        after_msg = messages.get("after")
-        author = before_msg.author
-        before = before_msg.content
-        after = after_msg.content
+        mes = self.edit_mes.get(ctx.channel.id)
+        title = f"Message from {mes['author']}"
+        description = f"""
+            **Before**: {mes['before']}
+            **After**: {mes['after']}
+        """
 
         embed = discord.Embed(
-            title=f"Message from {author}",
-            description=f"**Before**: {before}\n**After**: {after}",
+            title=title,
+            description=formatDocstr(description),
             color=discord.Color.red(),
         )
         await ctx.send(embed=embed)
