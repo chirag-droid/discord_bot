@@ -1,5 +1,5 @@
 bot:
-  TOKEN: ${BOT_TOKEN}
+  TOKEN: !ENV ${BOT_TOKEN}
   
   # These configs are optional
   # prefix: !!python/tuple ["a!", "A!"]

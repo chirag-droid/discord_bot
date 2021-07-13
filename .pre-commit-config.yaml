@@ -4,6 +4,7 @@ repos:
     hooks:
       - id: check-merge-conflict
       - id: check-yaml
+        entry: check-yaml --unsafe
 
   - repo: https://github.com/psf/black
     rev: 21.6b0

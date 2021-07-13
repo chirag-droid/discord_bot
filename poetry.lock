@@ -147,17 +147,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "envyaml"
-version = "1.8.210417"
-description = "Simple YAML configuration file parser with easy access for structured data"
-category = "main"
-optional = false
-python-versions = ">=2.7"
-
-[package.dependencies]
-PyYAML = "*"
-
-[[package]]
 name = "filelock"
 version = "3.0.12"
 description = "A platform independent file lock."
@@ -443,7 +432,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "3.9.6"
-content-hash = "75f871c7f88a5bed90aa1496658bf45fc5d359468227418de70cd266ee82ba96"
+content-hash = "34709ebe51a0b14c9c99984a8841185199772da14b21d1f72d938c412ec71cd5"
 
 [metadata.files]
 aiohttp = [
@@ -532,10 +521,6 @@ colorama = [
 distlib = [
     {file = "distlib-0.3.2-py2.py3-none-any.whl", hash = "sha256:23e223426b28491b1ced97dc3bbe183027419dfc7982b4fa2f05d5f3ff10711c"},
     {file = "distlib-0.3.2.zip", hash = "sha256:106fef6dc37dd8c0e2c0a60d3fca3e77460a48907f335fa28420463a6f799736"},
-]
-envyaml = [
-    {file = "envyaml-1.8.210417-py2.py3-none-any.whl", hash = "sha256:3ecb2ffce759ccf94bf4fd1c5966062b03227c822cf106bf2bdb60679e7ca2d9"},
-    {file = "envyaml-1.8.210417.tar.gz", hash = "sha256:8b73b266d7fcec7069f9447db4a86d290044a87aca7655125b1f82d5cb7161a9"},
 ]
 filelock = [
     {file = "filelock-3.0.12-py3-none-any.whl", hash = "sha256:929b7d63ec5b7d6b71b0fa5ac14e030b3f70b75747cef1b10da9b879fef15836"},
