@@ -7,7 +7,7 @@ from discord.ext.commands.context import Context
 from discord_bot.utils.messages import formatDocstr
 
 
-class Snipe(commands.Cog, name="General"):
+class Snipe(commands.Cog, name="Snipe"):
     """Snipe last editted and deleted messages"""
 
     def __init__(self, bot: Bot):

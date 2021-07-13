@@ -4,7 +4,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 
 
-class Nekos(commands.Cog, name="NSFW"):
+class Nekos(commands.Cog, name="Nsfw"):
     """NSFW commands to get hot and sexy pics"""
 
     def __init__(self, bot: Bot) -> None:

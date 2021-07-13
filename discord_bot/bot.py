@@ -12,6 +12,7 @@ bot = Bot(
     allowed_mentions=AllowedMentions(everyone=False),
     case_insensitive=True,
     strip_after_prefix=True,
+    help_command=None,
 )
 
 

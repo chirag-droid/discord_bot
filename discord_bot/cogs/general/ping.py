@@ -8,7 +8,7 @@ from discord_bot import start_time
 from discord_bot.utils.messages import formatDocstr
 
 
-class Ping(commands.Cog, name="General"):
+class Ping(commands.Cog, name="Ping"):
     """Get the bot's current latency and uptime."""
 
     def __init__(self, bot: Bot) -> None:
