@@ -16,7 +16,13 @@ pytest = "^6.2.4"
 flake8 = "^3.9.2"
 black = "^21.6b0"
 pre-commit = "^2.13.0"
+taskipy = "^1.8.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.taskipy.tasks]
+start = { cmd = "python -m discord_bot", help = "Runs the bot"}
+lint = { cmd = "pre-commit run --all-files", help = "Lints code using black and flake8" }
+precommit = { cmd = "pre-commit install", help = "Sets up pre-commit for the project" }
