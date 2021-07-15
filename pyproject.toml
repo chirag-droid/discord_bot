@@ -10,6 +10,7 @@ python = "3.9.6"
 PyYAML = "^5.4.1"
 arrow = "^1.1.1"
 "nekos.py" = "^1.0.3"
+requests = "^2.26.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.4"
