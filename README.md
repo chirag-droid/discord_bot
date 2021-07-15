@@ -1,5 +1,7 @@
 # discord_bot
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/chirag-droid/discord_bot/main.svg)](https://results.pre-commit.ci/latest/github/chirag-droid/discord_bot/main)
+
 Hi, :wave: welcome to my discord bot. This is just a small project for making me learn about open source, using github actions, git version control. The bot is not currently public but you can self host it. See [how to host](#host)
 
 ## <a id="contribute">How to contribute</a>
