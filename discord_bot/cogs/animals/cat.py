@@ -54,7 +54,6 @@ class Cat(commands.Cog, name="Cat"):
             embed = discord.Embed(title="Random cat gif", color=0xFF0090)
             embed.set_footer(text=f"Requested by {ctx.author}")
             embed.set_image(url="attachment://cat.gif")
-            embed.video = self.base_api + r.get("url")
 
             await ctx.reply(embed=embed, file=file)
 
