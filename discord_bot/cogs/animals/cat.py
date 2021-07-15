@@ -34,7 +34,7 @@ class Cat(commands.Cog, name="Cat"):
             else:
                 arg = "say something"
             text = requote_uri(arg)
-            r = requests.get(f"{self.base_api}/cat/says/{text}").json()
+            r = requests.get(f"{self.base_api}/cat/says/{text}?json=true").json()
             embed = discord.Embed(title=f"Cat saying {arg}", color=0xFF0090)
             embed.set_image(url=self.base_api + r.get("url"))
             embed.set_footer(text=f"Requested by {ctx.author}")
