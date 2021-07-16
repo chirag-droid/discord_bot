@@ -44,17 +44,18 @@ class Help(commands.Cog, name="Help"):
 
         else:
             arg = " ".join(arg)
-            if self.bot.get_command(arg.lower()):
-                command = self.bot.get_command(arg.lower())
-                title = f"Help for command {arg.lower()}"
-                description = f"```{get_help(command, subcommands=True)}```"
-
-            elif arg.capitalize() in self.bot.cogs:
-                await context.send(self.bot.cogs)
+            if arg.capitalize() in self.bot.cogs:
                 cog = self.bot.get_cog(arg.capitalize())
                 title = f"Help for category {arg.capitalize()}"
-                help = "".join(get_help_cog(cog, subcommands=True))
+                help = "".join(get_help_cog(cog, subcommands=True, show_hidden=True))
                 description = f"```{help}```"
+
+            elif self.bot.get_command(arg.lower()):
+                command = self.bot.get_command(arg.lower())
+                title = f"Help for command {arg.lower()}"
+                description = (
+                    f"```{get_help(command, subcommands=True, show_hidden=True)}```"
+                )
 
             else:
                 title = "Not found!"
