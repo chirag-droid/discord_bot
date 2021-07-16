@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+from discord_bot.bot import Bot
 from discord_bot.config import BotConfig
 from discord_bot.utils.help import get_help, get_help_cog
 
@@ -8,7 +9,7 @@ from discord_bot.utils.help import get_help, get_help_cog
 class Help(commands.Cog, name="Help"):
     """Get info on a available commands, cogs"""
 
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: Bot):
         self.bot = bot
 
     @commands.command(name="help")
@@ -49,6 +50,7 @@ class Help(commands.Cog, name="Help"):
                 description = f"```{get_help(command, subcommands=True)}```"
 
             elif arg.capitalize() in self.bot.cogs:
+                await context.send(self.bot.cogs)
                 cog = self.bot.get_cog(arg.capitalize())
                 title = f"Help for category {arg.capitalize()}"
                 help = "".join(get_help_cog(cog, subcommands=True))
@@ -66,5 +68,5 @@ class Help(commands.Cog, name="Help"):
         return await context.send(embed=embed)
 
 
-def setup(bot):
+def setup(bot: Bot):
     bot.add_cog(Help(bot))

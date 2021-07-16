@@ -1,5 +1,6 @@
 bot:
   TOKEN: !ENV ${BOT_TOKEN}
+  mongodb: !ENV ${MONGO_URL}
   
   # These configs are optional
   # prefix: !!python/tuple ["a!", "A!"]

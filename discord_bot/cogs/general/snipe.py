@@ -1,9 +1,9 @@
 import discord
 from discord import Message
 from discord.ext import commands
-from discord.ext.commands import Bot
 from discord.ext.commands.context import Context
 
+from discord_bot.bot import Bot
 from discord_bot.utils.messages import formatDocstr
 
 

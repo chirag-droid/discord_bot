@@ -40,3 +40,4 @@ class BotConfig(NamedTuple):
     description = config["bot"].get("description", "Anime girls bot")
     activity = config["bot"].get("activity", "with anime girls")
     large_image = config["bot"].get("large_image", None)
+    mongodb = config["bot"].get("mongodb", None)

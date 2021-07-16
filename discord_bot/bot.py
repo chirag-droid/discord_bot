@@ -1,21 +1,45 @@
-from discord import Game
+import platform
+import traceback
+
+import discord
 from discord.ext import commands
-from discord.ext.commands import Bot
-from discord.mentions import AllowedMentions
+from pymongo import MongoClient
 
-from discord_bot.config import BotConfig
-
-bot = Bot(
-    command_prefix=commands.when_mentioned_or(*BotConfig.prefix),
-    description=BotConfig.description,
-    activity=Game(BotConfig.activity, large_image_url=BotConfig.large_image),
-    allowed_mentions=AllowedMentions(everyone=False),
-    case_insensitive=True,
-    strip_after_prefix=True,
-    help_command=None,
-)
+import discord_bot
 
 
-@bot.event
-async def on_ready():
-    print(f"Logged in as {bot.user.name}")
+class Bot(commands.Bot):
+    def __init__(self, *args, mongoClient: MongoClient, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.mongoClient = mongoClient
+
+    async def login(self, *args, **kwargs):
+        await self.ping_mongodb()
+        return await super().login(*args, **kwargs)
+
+    async def on_ready(self):
+        print(f"Logged in as {self.user.name}")
+        print(f"Start time: {discord_bot.start_time}")
+        print(f"Running bot version {discord_bot.__version__}")
+        print(f"Discord.py API version: {discord.__version__}")
+        print(f"Python Version {platform.python_version()}")
+        print("----------------------")
+
+    def add_cog(self, cog: commands.Cog):
+        super().add_cog(cog)
+        print(f"Succesfully Loaded cog: {cog.qualified_name}")
+
+    async def ping_mongodb(self):
+        print("\nEstablishing connection to mongoDb...")
+
+        try:
+            await self.mongoClient.server_info()
+            print("Connection to mongodb was succesful\n")
+        except Exception:
+            print("Coudn't connect to mongodb")
+            traceback.print_exc()
+
+    async def close(self):
+        print("Closing mongoDb session.")
+        self.mongoClient.close()
+        return await super().close()

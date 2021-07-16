@@ -26,7 +26,7 @@ def get_help(command: Union[commands.Command, commands.Group], subcommands=False
 
     help_text = f"{prefix}{command.qualified_name} - {command.help}\n{aliases}"
     if command.hidden:
-        return f"||{help_text}||"
+        return ""
     return help_text
 
 

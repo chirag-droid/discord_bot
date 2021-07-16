@@ -5,11 +5,13 @@ import requests
 from discord.ext import commands
 from requests.utils import requote_uri
 
+from discord_bot.bot import Bot
+
 
 class Cat(commands.Cog, name="Cat"):
     """Get random cat, gif or make a cat say something"""
 
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: Bot):
         self.bot = bot
         self.base_api = "https://cataas.com"
 
@@ -19,7 +21,10 @@ class Cat(commands.Cog, name="Cat"):
         """Sends a random cat"""
         if ctx.invoked_subcommand is None:
             async with ctx.typing():
-                r = requests.get(f"{self.base_api}/cat?json=true").json()
+                r = requests.get(f"{self.base_api}/cat?json=true")
+                if r.status_code != 200:
+                    return ctx.reply("An http error occured")
+                r = r.json()
                 embed = discord.Embed(title="Random Cat", color=0xFF0090)
                 embed.set_image(url=self.base_api + r.get("url"))
                 embed.set_footer(text=f"Requested by {ctx.author}")
@@ -34,7 +39,10 @@ class Cat(commands.Cog, name="Cat"):
             else:
                 arg = "say something"
             text = requote_uri(arg)
-            r = requests.get(f"{self.base_api}/cat/says/{text}?json=true").json()
+            r = requests.get(f"{self.base_api}/cat/says/{text}?json=true")
+            if r.status_code != 200:
+                return ctx.reply("An http error occured")
+            r = r.json()
             embed = discord.Embed(title=f"Cat saying {arg}", color=0xFF0090)
             embed.set_image(url=self.base_api + r.get("url"))
             embed.set_footer(text=f"Requested by {ctx.author}")
@@ -46,7 +54,7 @@ class Cat(commands.Cog, name="Cat"):
         async with ctx.typing():
             r = requests.get(f"{self.base_api}/cat/gif")
             if r.status_code != 200:
-                await ctx.reply("An error occured when sending gif.")
+                return await ctx.reply("An error occured when sending gif.")
 
             gif = io.BytesIO(r.content)
             file = discord.File(gif, "cat.gif")
@@ -57,6 +65,19 @@ class Cat(commands.Cog, name="Cat"):
 
             await ctx.reply(embed=embed, file=file)
 
+    @cat.command(name="fact", aliases=["facts"])
+    async def fact(self, ctx: commands.Context):
+        """Get a random cat fact"""
+        async with ctx.typing():
+            r = requests.get("https://catfact.ninja/fact")
+            if r.status_code != 200:
+                return await ctx.reply("An http error occured")
+            r = r.json()
+            embed = discord.Embed(title="Random cat fact", color=0xFF0090)
+            embed.description = r.get("fact")
+            embed.set_footer(text=f"Requested by {ctx.author}")
+            await ctx.reply(embed=embed)
 
-def setup(bot: commands.Bot):
+
+def setup(bot: Bot):
     bot.add_cog(Cat(bot))

@@ -2,9 +2,9 @@ import time
 
 import discord
 from discord.ext import commands
-from discord.ext.commands import Bot
 
 from discord_bot import start_time
+from discord_bot.bot import Bot
 from discord_bot.utils.messages import formatDocstr
 
 

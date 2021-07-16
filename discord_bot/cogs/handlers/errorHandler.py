@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+from discord_bot.bot import Bot
 from discord_bot.utils.messages import formatDocstr
 
 
@@ -9,7 +10,7 @@ class errorHandler(commands.Cog):
     Error Handler cog that handles bot errors globally
     """
 
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: Bot):
         self.bot = bot
 
     @commands.Cog.listener()
@@ -54,6 +55,19 @@ class errorHandler(commands.Cog):
                 NSFW commands can only be ran in NSFW channels.
             """
 
+        elif isinstance(error, commands.NotOwner):
+            title = "Not Owner"
+            description = """
+                Are you trying to break me by running a owner only command?
+                Sucks to be you.
+            """
+
+        elif isinstance(error, commands.CheckFailure):
+            title = "Check Failure"
+            description = """
+                You can't run this command because certain checks failed.
+            """
+
         else:
             title = "Unhandled error"
             description = f"""
@@ -71,5 +85,5 @@ class errorHandler(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: Bot):
     bot.add_cog(errorHandler(bot))
