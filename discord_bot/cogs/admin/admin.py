@@ -9,9 +9,6 @@ class Admin(commands.Cog):
     def __init__(self, bot: Bot):
         self.bot = bot
 
-    async def cog_command_error(self, ctx, error):
-        return await super().cog_command_error(ctx, error)
-
     @commands.command(name="shutdown", hidden=True)
     @commands.is_owner()
     async def shutdow(self, ctx: commands.Context):
