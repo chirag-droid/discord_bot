@@ -41,3 +41,9 @@ class BotConfig(NamedTuple):
     activity = config["bot"].get("activity", "with anime girls")
     large_image = config["bot"].get("large_image", None)
     mongodb = config["bot"].get("mongodb", None)
+
+
+class GuildConfig(NamedTuple):
+    guildInvite = config["guild"].get("invite")
+    suggestChannel = config["guild"]["channels"].get("suggestion")
+    reportingChannel = config["guild"]["channels"].get("reporting")

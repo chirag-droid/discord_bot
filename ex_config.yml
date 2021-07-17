@@ -6,3 +6,10 @@ bot:
   # prefix: !!python/tuple ["a!", "A!"]
   # description: "Anime Girls bot"
   # activity: "with anime girls"
+
+guild:
+  invite: "https://discord.gg/kmuAZ544ct"
+
+  channels:
+    suggestion: 858657073914445854
+    reporting: 865932018936184832
