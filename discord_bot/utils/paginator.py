@@ -28,7 +28,10 @@ class Paginator:
         base_embed._fields = []
         fields = self.embed._fields.copy()
 
-        for i in range((len(fields) // 3) + 1):
+        limit = len(fields) / 3
+        if limit % 1:
+            limit += 1
+        for i in range(int(limit)):
             start = i * 3
             base_embed._fields = [*fields[start:start + 3]]
             self.embeds.append(base_embed.copy())
