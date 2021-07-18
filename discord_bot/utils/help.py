@@ -14,23 +14,26 @@ def get_help(
     """
     A util function that walks through all commands recursivey and returns help str.
     """
+    if not show_hidden and command.hidden:
+        return ""
+
     prefix = BotConfig.prefix
     if not isinstance(prefix, str):
         prefix = prefix[0]
 
-    if subcommands and isinstance(command, commands.Group):
-        command_list = [command, *command.walk_commands()]
-        return "\n\n".join(map(get_help, command_list))
+    help_text = f"{prefix}{command.qualified_name} - {command.help}"
 
     aliases = command.aliases
     if len(aliases) > 0:
-        aliases = f"Command aliases - {', '.join(aliases)}\n"
-    else:
-        aliases = ""
+        help_text += f"\nCommand aliases - {', '.join(aliases)}\n"
 
-    help_text = f"{prefix}{command.qualified_name} - {command.help}\n{aliases}"
-    if not show_hidden and command.hidden:
-        return ""
+    if isinstance(command, commands.Group):
+        if subcommands:
+            command_list = [command, *command.walk_commands()]
+            return "\n\n".join(map(get_help, command_list))
+        subcommand_names = ", ".join([x.name for x in command.walk_commands()])
+        help_text += f"Command Subcommands - {subcommand_names}"
+
     return help_text
 
 

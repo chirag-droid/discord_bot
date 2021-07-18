@@ -4,6 +4,7 @@ from discord.ext import commands
 from discord_bot.bot import Bot
 from discord_bot.config import BotConfig
 from discord_bot.utils.help import get_help, get_help_cog
+from discord_bot.utils.paginator import Paginator
 
 
 class Help(commands.Cog, name="Help"):
@@ -25,22 +26,24 @@ class Help(commands.Cog, name="Help"):
         embed.set_author(name=self.bot.user.name, icon_url=self.bot.user.avatar_url)
         footer = f"For more information about a command run {prefix}help <command>"
         embed.set_footer(text=footer)
-        color = 0x42F56C
+        embed.color = 0x42F56C
 
         if not arg:
-            title = "Help Commands"
-            description = "List of available commands."
+            embed.title = "Help Commands"
+            embed.description = "List of available commands."
 
             for i in self.bot.cogs:
                 cog = self.bot.get_cog(i)
-                help = "".join(get_help_cog(cog))
-                if not help:
+                help = "\n".join(get_help_cog(cog))
+                if not help.strip():
                     continue
                 embed.add_field(
                     name=f"{i.capitalize()}",
                     value=f"```{help}```",
                     inline=False,
                 )
+            paginator = Paginator(ctx=context, embed=embed)
+            return await paginator.run()
 
         else:
             arg = " ".join(arg)
@@ -60,10 +63,8 @@ class Help(commands.Cog, name="Help"):
             else:
                 title = "Not found!"
                 description = f"Command/cog {arg} not found"
-                color = discord.Color.red()
+                embed.color = discord.Color.red()
 
-        if color:
-            embed.color = color
         embed.title = title
         embed.description = description
         return await context.send(embed=embed)
