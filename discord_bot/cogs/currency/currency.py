@@ -1,9 +1,11 @@
 from typing import Union
+
 import discord
 from discord.ext import commands
+from pymongo.collection import Collection
+
 from discord_bot.bot import Bot
 from discord_bot.utils.cache import AsyncCache
-from pymongo.collection import Collection
 from discord_bot.utils.messages import formatDocstr
 
 async_cache = AsyncCache(max_size=256)
