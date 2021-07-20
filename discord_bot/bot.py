@@ -3,13 +3,12 @@ import traceback
 
 import discord
 from discord.ext import commands
-from pymongo import MongoClient
 
 import discord_bot
 
 
 class Bot(commands.Bot):
-    def __init__(self, *args, mongoClient: MongoClient, **kwargs):
+    def __init__(self, *args, mongoClient, **kwargs):
         super().__init__(*args, **kwargs)
         self.mongoClient = mongoClient
 
