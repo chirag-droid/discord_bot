@@ -1,18 +1,18 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v4.5.0
     hooks:
       - id: check-merge-conflict
       - id: check-yaml
         entry: check-yaml --unsafe
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.9.3
+    rev: 5.13.2
     hooks:
       - id: isort
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 3.9.2
+    rev: 7.0.0
     hooks:
       - id: flake8
         entry: flake8 --max-line-length 88
